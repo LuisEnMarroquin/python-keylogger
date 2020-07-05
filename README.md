@@ -10,17 +10,19 @@ cd python-keylogger/
 pip install -r requirements.txt
 ```
 
-## Run as background process
-
-Windows
-
-```powershell
-pythonw .\keylogger.py
-```
-
-Linux
+## Run as foreground process
 
 ```shell
+python keylogger.py
+```
+
+## Run as background process
+
+```shell
+# Windows
+pythonw keylogger.py
+
+# Linux
 python keylogger.py &
 ```
 
@@ -37,6 +39,11 @@ pip install pyinstaller
 pyinstaller --onefile keylogger.py
 ```
 
+## Run at startup on Windows
 
+```shell
+python windows.py
+```
 
-C:\Users\Chimney\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+To remove auto startup remove keylogger related files at:
+`C:\Users\USERNAME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\`
