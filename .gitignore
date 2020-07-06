@@ -1,18 +1,20 @@
 
-# File managers
+# explorer
 .DS_Store
 .directory
 desktop.ini
 
-# Logs
+# logs
 *.log
 
-# Executables
+# executables
 *.app
 *.exe
 
 # pyinstaller
-*.spec
 dist/
 build/
+*.spec
+
+# cache
 __pycache__/

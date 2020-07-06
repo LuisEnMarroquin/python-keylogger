@@ -1,6 +1,6 @@
 # Python keylogger
 
-The simplest keylogger you can create using Python 3 with only 1 dependency
+The simplest keylogger you can create using Python 3 with only `keyboard` dependency
 
 ## Download and setup environment
 
@@ -13,22 +13,30 @@ pip install -r requirements.txt
 ## Run as foreground process
 
 ```shell
-python keylogger.py
+python klog.py
 ```
 
 ## Run as background process
 
 ```shell
 # Windows
-pythonw keylogger.py
+pythonw klog.py
 
 # Linux
-python keylogger.py &
+python klog.py &
 ```
 
 ## Stop key logging
 
-You can stop the background process at any time by clicking `f7`
+You can stop the background process at any time by clicking `f7` on any place
+
+## Linter
+
+If you have `sh` installed you can lint all `.py` files at once by running
+
+```shell
+sh lint.sh
+```
 
 ## Create Windows executable
 
@@ -36,7 +44,7 @@ If the following fails you may need to update all your global dependencies
 
 ```shell
 pip install pyinstaller
-pyinstaller --onefile keylogger.py
+pyinstaller --onefile klog.py
 ```
 
 ## Run at startup on Windows
