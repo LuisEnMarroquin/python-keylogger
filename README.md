@@ -22,13 +22,15 @@ python klog.py
 # Windows
 pythonw klog.py
 
-# Linux
+# Linux / macOS
 python klog.py &
 ```
 
 ## Stop key logging
 
-You can stop the background process at any time by clicking `f7` on any place
+You can stop the background process at any time by clicking `f7` on any place, this is the easy way
+
+The hard way is to search the process in your task manager and kill the process manually
 
 ## Linter
 
@@ -44,14 +46,25 @@ If the following fails you may need to update all your global dependencies
 
 ```shell
 pip install pyinstaller
-pyinstaller --onefile klog.py
+pyinstaller --noconsole --onefile klog.py
 ```
 
 ## Run at startup on Windows
 
 ```shell
-python windows.py
+python startup.py
 ```
 
 To remove auto startup remove keylogger related files at:
 `C:\Users\USERNAME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\`
+
+## Create portable executables to install on other Windows devices
+
+```powershell
+bat startup.bat
+```
+
+This will generate 2 files at `dist/` folder:
+
+* klog.exe (This is the actual keylogger that does all the work)
+* startup.exe (This will setup the keylogger to auto-start with Windows, **requires klog.exe**)
