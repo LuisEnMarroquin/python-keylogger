@@ -2,10 +2,12 @@
 
 The simplest keylogger you can create using Python 3 with only `keyboard` dependency
 
+Note: Will delete logs file everytime it runs and only one instance is allowed to run at once
+
 ## Download and setup environment
 
 ```shell
-https://github.com/LuisEnMarroquin/python-keylogger.git
+git clone https://github.com/LuisEnMarroquin/python-keylogger.git
 cd python-keylogger/
 pip install -r requirements.txt
 ```
@@ -30,7 +32,7 @@ python klog.py &
 
 You can stop the background process at any time by clicking `f7` on any place, this is the easy way
 
-The hard way is to search the process in your task manager and kill the process manually
+The hard way is to search the process in your **Task Manager** and kill the process manually
 
 ## Linter
 
@@ -50,6 +52,8 @@ pyinstaller --noconsole --onefile klog.py
 ```
 
 ## Run at startup on Windows
+
+If `startup.py` gets any argument will open **Windows File Manager** otherwise will open a **Fahrenheit to Celsius** mock app
 
 ```shell
 python startup.py

