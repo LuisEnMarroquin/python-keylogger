@@ -9,6 +9,10 @@ and I hope more antivirus software scan this simple way of doing a keylogger
 Note: Everytime you start the app will delete logs file everytime it runs and only one instance is allowed to run at once
 (this works by trying to delete the file but wont be able to because it'll used by the other instance)
 
+## LICENSE
+
+All files on this repository are licensed as described on `LICENSE` file 
+
 ## Download and setup environment
 
 ```shell
