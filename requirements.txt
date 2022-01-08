@@ -1,1 +1,6 @@
+# Required
 keyboard
+
+# Optional
+pylint
+pyinstaller
