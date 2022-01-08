@@ -2,7 +2,8 @@
 
 indent-string='  '
 
-disable=line-too-long,
+disable=
+  line-too-long,
   bad-continuation,
   missing-module-docstring,
   missing-function-docstring
